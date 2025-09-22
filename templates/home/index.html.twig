@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Scolaire - Tableau de Bord{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+    <!-- Hero Section -->
+    <section class="hero-section bg-primary text-white py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-10 text-center">
+                    <h1 class="display-4 fw-bold mb-3">Bienvenue sur Gestion Scolaire</h1>
+                    <p class="lead mb-4 opacity-75">
+                        Une plateforme moderne pour gérer efficacement votre établissement scolaire
+                    </p>
+                    {% if not app.user %}
+                    <div class="mt-4">
+                        <a href="{{ path('app_login') }}" class="btn btn-light btn-lg me-3 px-4">Connexion</a>
+                        <a href="{{ path('app_register') }}" class="btn btn-outline-light btn-lg px-4">Inscription</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container my-5">
+        {% if app.user %}
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Tableau de bord</h2>
+                <p class="text-center text-muted">Bon retour, {{ app.user.email }}! Que souhaitez-vous faire aujourd'hui ?</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- Cards Section -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 hover-card border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                            <span class="fs-2">👨‍🎓</span>
+                        </div>
+                        <h5 class="card-title fw-bold">Gestion des élèves</h5>
+                        <p class="card-text text-muted">Consultez et gérez le dossier de tous les élèves</p>
+                        <a href="{{ path('app_student_index') }}" class="btns btn-primary stretched-link mt-3">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 hover-card border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                            <span class="fs-2">👨‍🏫</span>
+                        </div>
+                        <h5 class="card-title fw-bold">Gestion des professeurs</h5>
+                        <p class="card-text text-muted">Administrez le corps enseignant</p>
+                        <a href="{{ path('app_teacher_index') }}" class="btns btn-primary stretched-link mt-3">Accéder</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 hover-card border-0">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                            <span class="fs-2">🏫</span>
+                        </div>
+                        <h5 class="card-title fw-bold">Gestion des classes</h5>
+                        <p class="card-text text-muted">Organisez les classes et emplois du temps</p>
+                        <a href="{{ path('app_classroom_index') }}" class="btns btn-primary stretched-link mt-3">Accéder</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="text-center mb-4">Aperçu de l'établissement</h3>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card text-center p-4 rounded-3 bg-light">
+                    <h4 class="text-primary fw-bold"></h4>
+                    <p class="mb-0 text-muted">Élèves inscrits</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card text-center p-4 rounded-3 bg-light">
+                    <h4 class="text-primary fw-bold">84</h4>
+                    <p class="mb-0 text-muted">Enseignants</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card text-center p-4 rounded-3 bg-light">
+                    <h4 class="text-primary fw-bold">36</h4>
+                    <p class="mb-0 text-muted">Classes</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card text-center p-4 rounded-3 bg-light">
+                    <h4 class="text-primary fw-bold">12</h4>
+                    <p class="mb-0 text-muted">Matières</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Features Section for Non-Logged Users -->
+        <div class="row mt-5 py-4">
+            <div class="col-12 text-center mb-5">
+                <h2>Découvrez nos fonctionnalités</h2>
+                <p class="text-muted">Une plateforme complète pour la gestion de votre établissement</p>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-3 mb-3" style="width: 90px; height: 90px;">
+                        <span class="fs-1">📊</span>
+                    </div>
+                    <h5>Suivi détaillé</h5>
+                    <p class="text-muted">Surveillez les progrès des élèves avec des rapports détaillés</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-3 mb-3" style="width: 90px; height: 90px;">
+                        <span class="fs-1">📅</span>
+                    </div>
+                    <h5>Emplois du temps</h5>
+                    <p class="text-muted">Créez et gérez facilement les emplois du temps</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <div class="bg-primary bg-opacity-10 rounded-circle p-3 mb-3" style="width: 90px; height: 90px;">
+                        <span class="fs-1">📝</span>
+                    </div>
+                    <h5>Évaluations</h5>
+                    <p class="text-muted">Générez des bulletins et suivis d'évaluation</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+</div>
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    }
+    
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .stat-card {
+        transition: transform 0.2s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-3px);
+    }
+    
+    .btns {
+        padding: 8px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-block;
+    }
+</style>
+{% endblock %}

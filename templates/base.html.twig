@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {# METHODE SIMPLE - Utilisez asset() #}
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    {% include '_partials/header.html.twig' %}
+    
+    <main class="container">
+        {% block body %}{% endblock %}
+    </main>
+    
+    {% include '_partials/footer.html.twig' %}
+    
+    {# METHODE SIMPLE - Pour le JS si besoin #}
+    <script src="{{ asset('assets/app.js') }}"></script>
+    
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

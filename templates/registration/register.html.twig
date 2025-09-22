@@ -1,0 +1,119 @@
+{# templates/registration/register.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - Gestion Scolaire{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-user-plus me-2"></i>Inscription
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(registrationForm) }}
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'votre@email.com'}}) }}
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Votre mot de passe'}}) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions d\'utilisation', {'label_attr': {'class': 'form-check-label'}}) }}
+                            {{ form_errors(registrationForm.agreeTerms) }}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-check me-2"></i>S'inscrire
+                            </button>
+                        </div>
+                    {{ form_end(registrationForm) }}
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0">Vous avez déjà un compte ?</p>
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-success btn-lg w-100 mt-2">
+                            <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-success:hover {
+        background-color: #218838;
+    }
+    
+    .btn-outline-success {
+        color: #28a745;
+        border-color: #28a745;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .btn-outline-success:hover {
+        background-color: #28a745;
+        color: #fff;
+    }
+    
+    .form-control-lg {
+        padding: 10px 15px;
+        font-size: 1.1em;
+        border-radius: 6px;
+    }
+    
+    .form-check-input {
+        width: 1.25em;
+        height: 1.25em;
+        margin-top: 0.3em;
+    }
+    
+    .form-check-label {
+        font-size: 0.95em;
+    }
+    .card-header {
+        border-bottom: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    hr {
+            border-top: 1px solid #e9ecef;
+        }
+        
+</style>
+{% endblock %}

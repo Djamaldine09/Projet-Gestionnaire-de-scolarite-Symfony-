@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Symfony Moderne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #f8fafc;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --accent-color: #f97316;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        /* Navigation Styles */
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+        }
+        
+
+        .btns {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #ea580c;
+            transform: translateY(-2px);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Demo content */
+        .demo-content {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+
+        .state-indicator {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .nav-list {
+                display: none;
+            }
+
+            .user-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-list.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: white;
+                width: 250px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                padding: 15px;
+                margin-top: 10px;
+            }
+
+            .nav-list.mobile-open .nav-link {
+                color: var(--text-color);
+                padding: 12px 15px;
+            }
+
+            .nav-list.mobile-open .nav-link:hover {
+                background-color: #f1f5f9;
+            }
+
+            .nav-list.mobile-open .btn {
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .logo span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="{{ path('app_home') }}" class="logo">
+                <i class="fas fa-rocket logo-icon"></i>
+                <span>Test Symfony</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list" id="navList">
+                    <li class="nav-item">
+                        <a style="text-decoration: none;" class="nav-link" href="{{ path('app_home') }}">
+                            <i class="fas fa-home"></i>
+                            Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="text-decoration: none;" class="nav-link" href="#">
+                            <i class="fas fa-info-circle"></i>
+                            À propos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a style="text-decoration: none;" class="nav-link" href="#">
+                            <i class="fas fa-envelope"></i>
+                            Contact
+                        </a>
+                    </li>
+
+                    {% if not app.user %}
+                    <li class="nav-item">
+                        <a style="text-decoration: none;" class="nav-link" href="{{ path('app_register') }}">
+                            <i class="fas fa-user-plus"></i>
+                            Inscription
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a style="text-decoration: none;" class="btns btn-primary" href="{{ path('app_login') }}">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Connexion
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                {% if app.user %}
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+</svg>
+                    </div>
+                    <a style="text-decoration: none;" href="{{ path('app_logout') }}" class="btns btn-outline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </a>
+                </div>
+                {% endif %}
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navList = document.getElementById('navList');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navList.classList.toggle('mobile-open');
+                
+                if (navList.classList.contains('mobile-open')) {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Fermer le menu si on clique à l'extérieur
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.main-nav') && navList.classList.contains('mobile-open')) {
+                    navList.classList.remove('mobile-open');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

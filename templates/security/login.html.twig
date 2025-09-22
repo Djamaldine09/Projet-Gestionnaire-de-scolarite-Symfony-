@@ -1,0 +1,471 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Gestion Scolaire{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *:before,
+        *:after{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        
+        .login-container {
+            background-color: #080710;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 10px;
+        }
+        
+        .background{
+            width: 430px;
+            height: 520px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            left: 50%;
+            top: 50%;
+        }
+        
+        .background .shape{
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .shape:first-child{
+            background: linear-gradient(#1845ad, #23a2f6);
+            left: -80px;
+            top: -75px;
+        }
+        
+        .shape:last-child{
+            background: linear-gradient(to right, #ff512f, #f09819);
+            right: -80px;
+            bottom: -75px;
+        }
+        
+        .login-form{
+            height: 670px;
+            width: 400px;
+            background-color: rgba(255,255,255,0.13);
+            position: relative;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(8,7,16,0.6);
+            padding: 50px 35px;
+            z-index: 2;
+        }
+        
+        .login-form *{
+            font-family: 'Poppins',sans-serif;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+        
+        .login-form h3{
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label{
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input{
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            padding: 0 15px;
+            font-size: 14px;
+            font-weight: 300;
+        }
+        
+        ::placeholder{
+            color: #e5e5e5;
+        }
+        
+        .login-btn{
+            margin-top: 30px;
+            width: 100%;
+            background-color: #ffffff;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .social-buttons {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.social-divider {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.social-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255,255,255,0.3) 20%, 
+        rgba(255,255,255,0.3) 80%, 
+        transparent 100%);
+}
+
+.divider1 {
+            display: flex;
+            align-items: center;
+            width: 55%;
+            position: relative;
+            left: 90px;
+            margin: 24px 0;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        
+        .divider1::before,
+        .divider1::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #dadce0;
+        }
+        
+        .divider1::before {
+            margin-right: 16px;
+        }
+        
+        .divider1::after {
+            margin-left: 16px;
+        }
+
+.social-buttons-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,0.2), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.social-btn:hover::before {
+    left: 100%;
+}
+
+.social-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.social-btn:active {
+    transform: translateY(0);
+}
+
+/* Bouton Google */
+.google-btn {
+    background: white;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.google-btn:hover {
+    background: linear-gradient(135deg, #4285F4 15%, #34A853 65%, #FBBC05 100%);
+    box-shadow: 0 5px 20px rgba(66, 133, 244, 0.4);
+    color: rgb(255, 255, 255);
+}
+
+/* Bouton Facebook */
+.facebook-btn {
+    background: white;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.facebook-btn:hover {
+    background: linear-gradient(135deg, #1877F2 20%, #0D8BFF 80%);
+    box-shadow: 0 5px 20px rgba(24, 119, 242, 0.4);
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+}
+
+.social-text {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: black;
+}
+.social-text1 {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: black;
+}
+
+/* Animation au survol */
+@keyframes socialShine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .social-buttons-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .social-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .social-divider span {
+        font-size: 12px;
+        padding: 0 10px;
+    }
+}
+
+/* Effet de profondeur */
+.social-btn {
+    box-shadow: 
+        0 4px 8px rgba(0,0,0,0.2),
+        0 2px 4px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Animation de pulse au focus */
+.social-btn:focus {
+    outline: none;
+    animation: pulse 0.6s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+}
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .remember-me input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .register-link a {
+            color: #23a2f6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .register-link a:hover {
+            color: #1845ad;
+            text-decoration: underline;
+        }
+        
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.8);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            border-radius: 5px;
+            padding: 12px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="login-form">
+        <h3>Connexion</h3>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            <div class="form-group">
+                <label for="inputEmail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+  <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+  <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+</svg>  Email
+                </label>
+                <input 
+                    type="email" 
+                    value="{{ last_username }}" 
+                    name="username"  {# ← CORRECTION : name="email" au lieu de "username" #}
+                    id="username" {# ← CORRECTION : id="inputEmail" #}
+                    autocomplete="email" 
+                    required 
+                    autofocus
+                    placeholder="votre@email.com"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+  <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+</svg> Mot de passe
+                </label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="inputPassword" 
+                    autocomplete="current-password" 
+                    required
+                    placeholder="Votre mot de passe"
+                >
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember_me" name="_remember_me">
+                <label for="remember_me">Se souvenir de moi</label>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+            </button>
+
+            <div class="register-link">
+                <p>Vous n'avez pas de compte ?</p>
+                <a href="{{ path('app_register') }}">
+                    <i class="fas fa-user-plus me-2"></i> Créer un compte
+                </a>
+            </div>
+
+            <div class="social-buttons">
+    <div class="divider1">Ou</div>
+    
+    <div class="social-buttons-container">
+        <button type="button" class="social-btn google-btn">
+            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span class="social-text1">Google</span>
+        </button>
+        
+        <button type="button" class="social-btn facebook-btn">
+            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+</svg>
+            <span class="social-text">Facebook</span>
+        </button>
+    </div>
+</div>
+        </form>
+    </div>
+</div>
+{% endblock %}

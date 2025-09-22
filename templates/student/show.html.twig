@@ -1,0 +1,165 @@
+{# templates/student/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de {{ student.firstName }} {{ student.lastName }}{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #fff;
+            position: relative;
+            top: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f4f4f4;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>👨‍🎓 {{ student.firstName }} {{ student.lastName }}</h1>
+        <div class="btn-group">
+            <a href="{{ path('app_student_index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Informations personnelles</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th width="120">Numero:</th>
+                            <td>{{ student.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom complet:</th>
+                            <td>{{ student.firstName }} {{ student.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Âge:</th>
+                            <td>{{ student.age }} ans</td>
+                        </tr>
+                        <tr>
+                            <th>Date de naissance:</th>
+                            <td>{{ student.dateOfBirth|date('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Genre:</th>
+                            <td>
+                                {% if student.gender == 'M' %}
+                                    Masculin
+                                {% else %}
+                                    Féminin
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>
+                                <a href="mailto:{{ student.email }}">{{ student.email }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone:</th>
+                            <td>
+                                {% if student.phone %}
+                                    <a href="tel:{{ student.phone }}">{{ student.phone }}</a>
+                                {% else %}
+                                    <span class="text-muted">Non renseigné</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Adresse</h5>
+                </div>
+                <div class="card-body">
+                    {% if student.address %}
+                        <p>{{ student.address|nl2br }}</p>
+                    {% else %}
+                        <p class="text-muted">Aucune adresse renseignée</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Classes</h5>
+                </div>
+                <div class="card-body">
+                    {% if student.classrooms|length > 0 %}
+                        {% for classroom in student.classrooms %}
+                            <span class="badge bg-primary mb-2 p-2">
+                                {{ classroom.name }} ({{ classroom.level }})
+                            </span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">Cet élève n'est inscrit dans aucune classe</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>
+{% endblock %}

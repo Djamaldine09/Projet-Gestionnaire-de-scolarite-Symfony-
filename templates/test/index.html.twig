@@ -1,0 +1,86 @@
+{# templates/security/login.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Gestion Scolaire{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-lock me-2"></i>Connexion
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">
+                                <i class="fas fa-envelope me-2"></i>Email
+                            </label>
+                            <input 
+                                type="email" 
+                                value="{{ last_username }}" 
+                                name="email" 
+                                id="inputEmail" 
+                                class="form-control form-control-lg" 
+                                autocomplete="email" 
+                                required 
+                                autofocus
+                                placeholder="votre@email.com"
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">
+                                <i class="fas fa-key me-2"></i>Mot de passe
+                            </label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="inputPassword" 
+                                class="form-control form-control-lg" 
+                                autocomplete="current-password" 
+                                required
+                                placeholder="Votre mot de passe"
+                            >
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember_me" name="_remember_me">
+                            <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-lg" type="submit">
+                                <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-2">Vous n'avez pas de compte ?</p>
+                        <a href="{{ path('app_register') }}" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-user-plus me-2"></i>Créer un compte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

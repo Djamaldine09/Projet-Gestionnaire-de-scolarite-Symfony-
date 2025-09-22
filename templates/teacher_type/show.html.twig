@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block body %}
+    <h1>Teacher</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ teacher.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ teacher.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ teacher.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ teacher.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ teacher.phone }}</td>
+            </tr>
+            <tr>
+                <th>Specialization</th>
+                <td>{{ teacher.specialization }}</td>
+            </tr>
+            <tr>
+                <th>HireDate</th>
+                <td>{{ teacher.hireDate ? teacher.hireDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_teacher_type_index') }}">back to list</a>
+
+    <a href="{{ path('app_teacher_type_edit', {'id': teacher.id}) }}">edit</a>
+
+    {{ include('teacher_type/_delete_form.html.twig') }}
+{% endblock %}

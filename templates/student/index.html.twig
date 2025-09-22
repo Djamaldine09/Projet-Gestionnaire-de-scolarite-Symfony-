@@ -1,0 +1,222 @@
+{# templates/student/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Élèves{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #fff;
+            position: relative;
+            top: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f4f4f4;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            color: #fff;
+            background-color: #6c757d;
+            border-radius: 12px;
+        }
+        
+        .badge.bg-info {
+            background-color: #17a2b8;
+        }
+        
+        .badge.bg-secondary {
+            background-color: #6c757d;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1 class="mb-4">📚 Liste des Élèves</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ path('app_student_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nouvel Élève
+        </a>
+        <span class="badge bg-secondary">{{ students|length }} élève(s)</span>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            
+        </div>
+    {% endfor %}
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead >
+                        <tr>
+                            <th >Numero</th>
+                            <th>Nom Complet</th>
+                            <th>Sexe</th>
+                            <th>Âge</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Classes</th>
+                            <th>Voir</th>
+                            <th>Modification</th>
+                            <th>Suppression</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>
+                                <strong>{{ student.firstName }} {{ student.lastName }}</strong>
+                                
+                            </td>
+                            <td>{% if student.gender %}
+                                    <span style="text-align: center;" class="badge bg-info ms-1">{{ student.gender }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ student.age }} ans</td>
+                            <td>
+                                <a href="mailto:{{ student.email }}">{{ student.email }}</a>
+                            </td>
+                            <td>
+                                {% if student.phone %}
+                                    <a href="tel:{{ student.phone }}">{{ student.phone }}</a>
+                                {% else %}
+                                    <span class="text-muted">Non renseigné</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if student.classrooms|length > 0 %}
+                                    {% for classroom in student.classrooms %}
+                                        <span class="badge bg-secondary">{{ classroom.name }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span class="text-muted">Aucune classe</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                    <a href="{{ path('app_student_show', {'id': student.id}) }}" 
+                                       class="btn btn-sm btn-info" title="Voir">
+                                        <i class="fas fa-eye"></i>show
+                                    </a>
+                                    
+                                    
+                               
+                            </td>
+                            <td>
+                                <a href="{{ path('app_student_edit', {'id': student.id}) }}" 
+                                       class="btn btn-sm btn-warning" title="Modifier">
+                                        <i class="fas fa-edit"></i>edit
+                                    </a>
+                            </td>
+                            <td>
+                                <form method="post" action="{{ path('app_student_delete', {'id': student.id}) }}" 
+                                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                                        <button class="btn btn-sm btn-danger" title="Supprimer">
+                                            <i class="fas fa-trash"></i>Supprimer
+                                        </button>
+                                    </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Aucun élève trouvé.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>
+{% endblock %}
